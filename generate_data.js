@@ -4,101 +4,87 @@ const path = require('path');
 // Years: 2021-2033
 const years = [2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033];
 
-// Geographies with their region grouping
+// Geographies with their region grouping (North America only)
 const regions = {
-  "North America": ["U.S.", "Canada"],
-  "Europe": ["U.K.", "Germany", "Italy", "France", "Spain", "Russia", "Rest of Europe"],
-  "Asia Pacific": ["China", "India", "Japan", "South Korea", "ASEAN", "Australia", "Rest of Asia Pacific"],
-  "Latin America": ["Brazil", "Argentina", "Mexico", "Rest of Latin America"],
-  "Middle East & Africa": ["GCC", "South Africa", "Rest of Middle East & Africa"]
+  "North America": ["U.S.", "Canada"]
 };
 
 // New segment definitions with market share splits (proportions within each segment type)
 const segmentTypes = {
-  "By Type": {
-    "Sub-Normothermic Perfusion (20–34°C)": 0.55,
-    "Warm or Normothermic Perfusion (35–37°C)": 0.45
+  "By Differential Type": {
+    "Open Differential": 0.45,
+    "Limited Slip Differential (LSD)": 0.25,
+    "Locking Differential": 0.18,
+    "Torque Vectoring Differential": 0.12
   },
-  "By Organ Type": {
-    "Liver": 0.35,
-    "Heart": 0.22,
-    "Lung": 0.18,
-    "Kidney": 0.15,
-    "Others (Pancreas, Small bowel / Intestine, Composite Tissues / Limb Perfusion (emerging use cases))": 0.10
+  "By Vehicle Type": {
+    "Passenger Cars": 0.62,
+    "Light Commercial Vehicles (LCV)": 0.23,
+    "Medium and Heavy Commercial Vehicles (M&HCV)": 0.15
   },
-  "Application / Use Case": {
-    "Organ Preservation": 0.30,
-    "Viability Assessment": 0.25,
-    "Physiologic Transport": 0.20,
-    "Reconditioning Marginal Organs": 0.15,
-    "Others (Research Use / Protocol development)": 0.10
+  "By Drivetrain Configuration": {
+    "Front-Wheel Drive (FWD)": 0.42,
+    "Rear-Wheel Drive (RWD)": 0.28,
+    "All-Wheel Drive / Four-Wheel Drive (AWD/4WD)": 0.30
   },
-  "By End User": {
-    "Hospitals & Clinics": 0.40,
-    "Specialty Clinic/Centers": 0.25,
-    "Transplant Centers": 0.25,
-    "Others (Research Institutes/Centers, Organ Procurement Organizations, etc.)": 0.10
+  "By Propulsion": {
+    "Internal Combustion Engine (ICE) Vehicles": 0.70,
+    "Hybrid Vehicles": 0.18,
+    "Battery Electric Vehicles (BEV)": 0.12
+  },
+  "By Sales Channel": {
+    "OEM (Original Equipment Manufacturer)": 0.72,
+    "Aftermarket": 0.28
   }
 };
 
 // Regional base values (USD Million) for 2021 - total market per region
-// Global Normothermic Machine Perfusion market ~$300M in 2021, growing ~12% CAGR
+// North America Automotive Differential market ~$3.2B in 2021
 const regionBaseValues = {
-  "North America": 120,
-  "Europe": 90,
-  "Asia Pacific": 50,
-  "Latin America": 20,
-  "Middle East & Africa": 15
+  "North America": 3200
 };
 
 // Country share within region (must sum to ~1.0)
 const countryShares = {
-  "North America": { "U.S.": 0.82, "Canada": 0.18 },
-  "Europe": { "U.K.": 0.18, "Germany": 0.22, "Italy": 0.12, "France": 0.16, "Spain": 0.10, "Russia": 0.08, "Rest of Europe": 0.14 },
-  "Asia Pacific": { "China": 0.28, "India": 0.12, "Japan": 0.25, "South Korea": 0.12, "ASEAN": 0.10, "Australia": 0.07, "Rest of Asia Pacific": 0.06 },
-  "Latin America": { "Brazil": 0.45, "Argentina": 0.15, "Mexico": 0.25, "Rest of Latin America": 0.15 },
-  "Middle East & Africa": { "GCC": 0.45, "South Africa": 0.25, "Rest of Middle East & Africa": 0.30 }
+  "North America": { "U.S.": 0.85, "Canada": 0.15 }
 };
 
-// Growth rates (CAGR) per region - slightly different for variety
+// Growth rates (CAGR) per region
 const regionGrowthRates = {
-  "North America": 0.115,
-  "Europe": 0.108,
-  "Asia Pacific": 0.145,
-  "Latin America": 0.125,
-  "Middle East & Africa": 0.118
+  "North America": 0.058
 };
 
 // Segment-specific growth multipliers (relative to regional base CAGR)
 const segmentGrowthMultipliers = {
-  "By Type": {
-    "Sub-Normothermic Perfusion (20–34°C)": 0.95,
-    "Warm or Normothermic Perfusion (35–37°C)": 1.07
+  "By Differential Type": {
+    "Open Differential": 0.85,
+    "Limited Slip Differential (LSD)": 1.05,
+    "Locking Differential": 1.10,
+    "Torque Vectoring Differential": 1.45
   },
-  "By Organ Type": {
-    "Liver": 1.08,
-    "Heart": 1.05,
-    "Lung": 1.12,
-    "Kidney": 0.95,
-    "Others (Pancreas, Small bowel / Intestine, Composite Tissues / Limb Perfusion (emerging use cases))": 1.20
+  "By Vehicle Type": {
+    "Passenger Cars": 0.95,
+    "Light Commercial Vehicles (LCV)": 1.10,
+    "Medium and Heavy Commercial Vehicles (M&HCV)": 1.05
   },
-  "Application / Use Case": {
-    "Organ Preservation": 0.92,
-    "Viability Assessment": 1.15,
-    "Physiologic Transport": 1.05,
-    "Reconditioning Marginal Organs": 1.18,
-    "Others (Research Use / Protocol development)": 1.10
+  "By Drivetrain Configuration": {
+    "Front-Wheel Drive (FWD)": 0.88,
+    "Rear-Wheel Drive (RWD)": 0.95,
+    "All-Wheel Drive / Four-Wheel Drive (AWD/4WD)": 1.25
   },
-  "By End User": {
-    "Hospitals & Clinics": 0.98,
-    "Specialty Clinic/Centers": 1.10,
-    "Transplant Centers": 1.08,
-    "Others (Research Institutes/Centers, Organ Procurement Organizations, etc.)": 1.05
+  "By Propulsion": {
+    "Internal Combustion Engine (ICE) Vehicles": 0.78,
+    "Hybrid Vehicles": 1.30,
+    "Battery Electric Vehicles (BEV)": 1.85
+  },
+  "By Sales Channel": {
+    "OEM (Original Equipment Manufacturer)": 0.98,
+    "Aftermarket": 1.08
   }
 };
 
-// Volume multiplier: units per USD Million (rough: ~500 units per $1M for perfusion devices)
-const volumePerMillionUSD = 480;
+// Volume multiplier: units per USD Million (~10,000 units per $1M for differentials)
+const volumePerMillionUSD = 9500;
 
 // Seeded pseudo-random for reproducibility
 let seed = 42;
@@ -154,7 +140,6 @@ function generateData(isVolume) {
     data[regionName]["By Country"] = {};
     for (const country of countries) {
       const cShare = countryShares[regionName][country];
-      // Use a slight variation of region growth per country
       const countryGrowthVariation = 1 + (seededRandom() - 0.5) * 0.06;
       const countryBase = regionBase * cShare;
       const countryGrowth = regionGrowth * countryGrowthVariation;
@@ -174,7 +159,6 @@ function generateData(isVolume) {
         for (const [segName, share] of Object.entries(segments)) {
           const segGrowth = countryGrowth * segmentGrowthMultipliers[segType][segName];
           const segBase = countryBase * share;
-          // Add slight country-specific variation to segment share
           const shareVariation = 1 + (seededRandom() - 0.5) * 0.1;
           data[country][segType][segName] = generateTimeSeries(segBase * shareVariation, segGrowth, roundFn);
         }
@@ -191,13 +175,28 @@ const valueData = generateData(false);
 seed = 7777;
 const volumeData = generateData(true);
 
+// Build segmentation_analysis.json (Global structure with empty leaves)
+const segmentationAnalysis = { Global: {} };
+for (const [segType, segments] of Object.entries(segmentTypes)) {
+  segmentationAnalysis.Global[segType] = {};
+  for (const segName of Object.keys(segments)) {
+    segmentationAnalysis.Global[segType][segName] = {};
+  }
+}
+segmentationAnalysis.Global["By Region"] = {};
+for (const [regionName, countries] of Object.entries(regions)) {
+  segmentationAnalysis.Global["By Region"][regionName] = {};
+  for (const country of countries) {
+    segmentationAnalysis.Global["By Region"][regionName][country] = {};
+  }
+}
+
 // Write files
 const outDir = path.join(__dirname, 'public', 'data');
 fs.writeFileSync(path.join(outDir, 'value.json'), JSON.stringify(valueData, null, 2));
 fs.writeFileSync(path.join(outDir, 'volume.json'), JSON.stringify(volumeData, null, 2));
+fs.writeFileSync(path.join(outDir, 'segmentation_analysis.json'), JSON.stringify(segmentationAnalysis, null, 2));
 
-console.log('Generated value.json and volume.json successfully');
-console.log('Value geographies:', Object.keys(valueData).length);
-console.log('Volume geographies:', Object.keys(volumeData).length);
+console.log('Generated value.json, volume.json, segmentation_analysis.json successfully');
+console.log('Geographies:', Object.keys(valueData));
 console.log('Segment types:', Object.keys(valueData['North America']));
-console.log('Sample - North America, By Type:', JSON.stringify(valueData['North America']['By Type'], null, 2));

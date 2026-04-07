@@ -1,62 +1,34 @@
 {
   "Global": {
-    "By Type": {
-      "Sub-Normothermic Perfusion (20–34°C)": {},
-      "Warm or Normothermic Perfusion (35–37°C)": {}
+    "By Differential Type": {
+      "Open Differential": {},
+      "Limited Slip Differential (LSD)": {},
+      "Locking Differential": {},
+      "Torque Vectoring Differential": {}
     },
-    "By Organ Type": {
-      "Liver": {},
-      "Heart": {},
-      "Lung": {},
-      "Kidney": {},
-      "Others (Pancreas, Small bowel / Intestine, Composite Tissues / Limb Perfusion (emerging use cases))": {}
+    "By Vehicle Type": {
+      "Passenger Cars": {},
+      "Light Commercial Vehicles (LCV)": {},
+      "Medium and Heavy Commercial Vehicles (M&HCV)": {}
     },
-    "Application / Use Case": {
-      "Organ Preservation": {},
-      "Viability Assessment": {},
-      "Physiologic Transport": {},
-      "Reconditioning Marginal Organs": {},
-      "Others (Research Use / Protocol development)": {}
+    "By Drivetrain Configuration": {
+      "Front-Wheel Drive (FWD)": {},
+      "Rear-Wheel Drive (RWD)": {},
+      "All-Wheel Drive / Four-Wheel Drive (AWD/4WD)": {}
     },
-    "By End User": {
-      "Hospitals & Clinics": {},
-      "Specialty Clinic/Centers": {},
-      "Transplant Centers": {},
-      "Others (Research Institutes/Centers, Organ Procurement Organizations, etc.)": {}
+    "By Propulsion": {
+      "Internal Combustion Engine (ICE) Vehicles": {},
+      "Hybrid Vehicles": {},
+      "Battery Electric Vehicles (BEV)": {}
+    },
+    "By Sales Channel": {
+      "OEM (Original Equipment Manufacturer)": {},
+      "Aftermarket": {}
     },
     "By Region": {
       "North America": {
         "U.S.": {},
         "Canada": {}
-      },
-      "Europe": {
-        "U.K.": {},
-        "Germany": {},
-        "Italy": {},
-        "France": {},
-        "Spain": {},
-        "Russia": {},
-        "Rest of Europe": {}
-      },
-      "Asia Pacific": {
-        "China": {},
-        "India": {},
-        "Japan": {},
-        "South Korea": {},
-        "ASEAN": {},
-        "Australia": {},
-        "Rest of Asia Pacific": {}
-      },
-      "Latin America": {
-        "Brazil": {},
-        "Argentina": {},
-        "Mexico": {},
-        "Rest of Latin America": {}
-      },
-      "Middle East & Africa": {
-        "GCC": {},
-        "South Africa": {},
-        "Rest of Middle East & Africa": {}
       }
     }
   }
