@@ -5,8 +5,7 @@
       "Limited Slip Differential (LSD)": {},
       "Locking Differential": {},
       "Torque Vectoring Differential": {},
-      "Disconnected Differential": {},
-      "Others (Electronic / Active Differential (eLSD), etc.)": {}
+      "Disconnected Differential": {}
     },
     "By Drivetrain Configuration": {
       "Front-Wheel Drive (FWD)": {},

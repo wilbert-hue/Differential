@@ -16,8 +16,7 @@ const segmentTypes = {
     "Limited Slip Differential (LSD)": 0.22,
     "Locking Differential": 0.15,
     "Torque Vectoring Differential": 0.11,
-    "Disconnected Differential": 0.08,
-    "Others (Electronic / Active Differential (eLSD), etc.)": 0.06
+    "Disconnected Differential": 0.08
   },
   "By Drivetrain Configuration": {
     "Front-Wheel Drive (FWD)": 0.42,
@@ -58,8 +57,7 @@ const segmentGrowthMultipliers = {
     "Limited Slip Differential (LSD)": 1.05,
     "Locking Differential": 1.10,
     "Torque Vectoring Differential": 1.45,
-    "Disconnected Differential": 1.55,
-    "Others (Electronic / Active Differential (eLSD), etc.)": 1.35
+    "Disconnected Differential": 1.55
   },
   "By Drivetrain Configuration": {
     "Front-Wheel Drive (FWD)": 0.88,
