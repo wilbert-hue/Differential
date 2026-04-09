@@ -4,12 +4,9 @@
       "Open Differential": {},
       "Limited Slip Differential (LSD)": {},
       "Locking Differential": {},
-      "Torque Vectoring Differential": {}
-    },
-    "By Vehicle Type": {
-      "Passenger Cars": {},
-      "Light Commercial Vehicles (LCV)": {},
-      "Medium and Heavy Commercial Vehicles (M&HCV)": {}
+      "Torque Vectoring Differential": {},
+      "Disconnected Differential": {},
+      "Others (Electronic / Active Differential (eLSD), etc.)": {}
     },
     "By Drivetrain Configuration": {
       "Front-Wheel Drive (FWD)": {},

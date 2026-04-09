@@ -12,15 +12,12 @@ const regions = {
 // New segment definitions with market share splits (proportions within each segment type)
 const segmentTypes = {
   "By Differential Type": {
-    "Open Differential": 0.45,
-    "Limited Slip Differential (LSD)": 0.25,
-    "Locking Differential": 0.18,
-    "Torque Vectoring Differential": 0.12
-  },
-  "By Vehicle Type": {
-    "Passenger Cars": 0.62,
-    "Light Commercial Vehicles (LCV)": 0.23,
-    "Medium and Heavy Commercial Vehicles (M&HCV)": 0.15
+    "Open Differential": 0.38,
+    "Limited Slip Differential (LSD)": 0.22,
+    "Locking Differential": 0.15,
+    "Torque Vectoring Differential": 0.11,
+    "Disconnected Differential": 0.08,
+    "Others (Electronic / Active Differential (eLSD), etc.)": 0.06
   },
   "By Drivetrain Configuration": {
     "Front-Wheel Drive (FWD)": 0.42,
@@ -60,12 +57,9 @@ const segmentGrowthMultipliers = {
     "Open Differential": 0.85,
     "Limited Slip Differential (LSD)": 1.05,
     "Locking Differential": 1.10,
-    "Torque Vectoring Differential": 1.45
-  },
-  "By Vehicle Type": {
-    "Passenger Cars": 0.95,
-    "Light Commercial Vehicles (LCV)": 1.10,
-    "Medium and Heavy Commercial Vehicles (M&HCV)": 1.05
+    "Torque Vectoring Differential": 1.45,
+    "Disconnected Differential": 1.55,
+    "Others (Electronic / Active Differential (eLSD), etc.)": 1.35
   },
   "By Drivetrain Configuration": {
     "Front-Wheel Drive (FWD)": 0.88,
